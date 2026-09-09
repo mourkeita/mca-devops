@@ -1,2 +1,0 @@
-# mca-devops
-Devops solution
