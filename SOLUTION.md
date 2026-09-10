@@ -95,6 +95,6 @@ ANd many other small isuues for installing tools.
 9.2. Docker hub
 <img src="images/screenshot2.png" alt="Docker hub" width="800">
 9.3. Frontend on AWS
-<img src="images/screenshot3.png" alt="Frontend on AWS" width="800">
+<img src="images/scrennshot3.png" alt="Frontend on AWS" width="800">
 9.4. CLuster AWS
-<img src="images/screenshot4.png" alt="EKS Cluster" width="800">
+<img src="images/scrennshot4.png" alt="EKS Cluster" width="800">
