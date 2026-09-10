@@ -1,6 +1,6 @@
 # mca-devops
 
-1. INTRODUCTION
+**1. INTRODUCTION**
 ---
 This project is about deploying a 3-components applicaiton :
 
@@ -19,8 +19,8 @@ The CI/CD workflow is like this  :
 
 <img src="images/ci-cd.jpg" alt="CI CD diagram" width="800">
 
----
-2. PREREQUISITES
+
+**2. PREREQUISITES**
 ---
 Jenkins must have these tools installed :
 
@@ -44,8 +44,8 @@ AWS credentials must also be available to Jenkins.
 
 Docker Hub credentials should be stored in Jenkins Credentials rather
 
----
-3. BUILD steps
+
+**3. BUILD steps**
 ---
 I build all the components locally before depolying. The Front and the back as well.
 
@@ -59,15 +59,15 @@ mkeita/mca-devops-backend : docker build -t mkeita/mca-devops-backend .
 docker push mkeita/mca-devops-frontend:1.0.0
 docker push mkeita/mca-devops-backend:1.0.0
 
----
-4. DEPLOYMENT steps
+
+**4. DEPLOYMENT steps**
 ---
 4.1. EKS
 I choosed to deploy a EKS cluster with 2 nodes on eu-west-3 (Paris) that should be enough.
 Added a namespace and EBS CSI driver.
 
----
-6. ANSIBLE
+
+**5. ANSIBLE**
 ---   
 I decided to deploy on EKS as well.
 For the inventory  Kubernetes communicates with nodes so need to fill the inventory.
@@ -75,21 +75,21 @@ For the versionning, i increment with the number of build : 1.0.1, 1.0.2 ...
 
 mkeiita/mca-devops-frontend:1.0.2 ...
 
----
-6. JENKINS
+
+**6. JENKINS**
 ---
 for the Jenkins pipeline, i first store the docker huhb credentials  on Jenkins Credentials, the AWS AK SK ...
 and all the env vars.
 
----
-8. REPOSITORY
+
+**7. REPOSITORY**
 ---
  For deployments purposes, i separate Jenkins and ANsible.
 I choose to have the same manifests files both in Ansible folder and on k8s folder for the 2 types of deployment.
 With Ansible or just Jenkins on my cluster mca-devops-cluster.
 
----
-10. DECISIONS and ISSUES
+
+**8. DECISIONS and ISSUES**
 ---
 I decided to deploy everything on AWS.
 I also added some firewall rules to let internet connect to the frontend port  on Security Groups.
@@ -101,8 +101,8 @@ when deploying the Frontend on Dockerfile  when copying /app/dist --> /usr/share
 i faced also issue when creating the PVC. I had to add OCI driver on the kube-system node.
 ANd many other small isuues for installing tools.
 
----
-9. SCREENSHOTS
+
+**9. SCREENSHOTS**
 --- 
 
 9.1. Frontend with data
@@ -117,8 +117,7 @@ ANd many other small isuues for installing tools.
 ---   
 <img src="images/scrennshot3.png" alt="Frontend on AWS" width="800">
 
-9.4. CLuster AWS
+9.4. Cluster AWS
 ---
 <img src="images/scrennshot4.png" alt="EKS Cluster" width="800">
 
----
