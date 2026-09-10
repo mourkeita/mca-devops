@@ -10,11 +10,14 @@ This project is about deploying a 3-components applicaiton :
 
 My target architecture is :
 
+<img src="images/image.jpg.png" alt="EKS Architecture" width="800">
+
 I choosed to deploy the solution on AWS using EKS (Elastic Kubernetes Service)
 For docker image registry, i use : https://hub.docker.com.
 
 The CI/CD workflow is like this  :
 
+<img src="images/ci-cd.jpg" alt="CI CD diagram" width="800">
 2. PREREQUISITES
 Jenkins must have these tools installed :
 
@@ -86,4 +89,12 @@ when deploying the Frontend on Dockerfile  when copying /app/dist --> /usr/share
 i faced also issue when creating the PVC. I had to add OCI driver on the kube-system node.
 ANd many other small isuues for installing tools.
 
-9. SCREENSHOT
+9. SCREENSHOTS
+9.1. Frontend with data
+<img src="images/screenshot.png" alt="FrontEnd" width="800">
+9.2. Docker hub
+<img src="images/screenshot2.png" alt="Docker hub" width="800">
+9.3. Frontend on AWS
+<img src="images/screenshot3.png" alt="Frontend on AWS" width="800">
+9.4. CLuster AWS
+<img src="images/screenshot4.png" alt="EKS Cluster" width="800">
