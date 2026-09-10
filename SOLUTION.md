@@ -64,7 +64,7 @@ docker push mkeita/mca-devops-backend:1.0.0
 ---
 4.1. EKS
 I choosed to deploy a EKS cluster with 2 nodes on eu-west-3 (Paris) that should be enough.
-Added a namespace and EBS CSI driver.
+Added a namespace mca and EBS CSI driver on kube-system namespace.
 
 
 **5. ANSIBLE**
