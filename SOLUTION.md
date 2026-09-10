@@ -10,7 +10,7 @@ This project is about deploying a 3-components applicaiton :
 
 My target architecture is :
 
-<img src="images/image.jpg.png" alt="EKS Architecture" width="800">
+<img src="images/mca-diagram.jpg" alt="EKS Architecture" width="800">
 
 I choosed to deploy the solution on AWS using EKS (Elastic Kubernetes Service)
 For docker image registry, i use : https://hub.docker.com.
