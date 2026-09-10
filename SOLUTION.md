@@ -95,6 +95,7 @@ I decided to deploy everything on AWS.
 I also added some firewall rules to let internet connect to the frontend port  on Security Groups.
 I decided to use one ALB.
 I decided to use PVC to persist the data from Postgres pods.
+I also added credentials on EKS secrets to not let it unencrypted. As a a guy with security background.
 
 I faced somes issues : 
 when deploying the Frontend on Dockerfile  when copying /app/dist --> /usr/share/...html : i had to find the real path 
