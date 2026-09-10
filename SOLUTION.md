@@ -63,6 +63,7 @@ I choosed to deploy a EKS cluster with 2 nodes on eu-west-3 (Paris) that should 
 Added a namespace and EBS CSI driver.
 
 5. ANSIBLE
+   
 I decided to deploy on EKS as well.
 For the inventory  Kubernetes communicates with nodes so need to fill the inventory.
 For the versionning, i increment with the number of build : 1.0.1, 1.0.2 ...
@@ -90,11 +91,19 @@ i faced also issue when creating the PVC. I had to add OCI driver on the kube-sy
 ANd many other small isuues for installing tools.
 
 9. SCREENSHOTS
+    
 9.1. Frontend with data
+   
 <img src="images/screenshot.png" alt="FrontEnd" width="800">
 9.2. Docker hub
+   
 <img src="images/screenshot2.png" alt="Docker hub" width="800">
-9.3. Frontend on AWS
+
+9.3. ALB distrubuting Frontend on AWS
+   
 <img src="images/scrennshot3.png" alt="Frontend on AWS" width="800">
+
 9.4. CLuster AWS
+
 <img src="images/scrennshot4.png" alt="EKS Cluster" width="800">
+
