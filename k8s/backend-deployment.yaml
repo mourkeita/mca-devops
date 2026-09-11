@@ -25,19 +25,16 @@ spec:
             - containerPort: 8080
 
           env:
-            - name: DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: db-secret
-                  key: host
+            - name: SPRING_POSTGRES_URL
+              value: "jdbc:postgresql://postgres:5432/postgres"
 
-            - name: DB_USER
+            - name: SPRING_POSTGRES_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: db-secret
                   key: user
 
-            - name: DB_PASSWORD
+            - name: SPRING_POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: db-secret
