@@ -73,6 +73,13 @@
     # 5. Deploy PostgreSQL
     # ==========================================
 
+    - name: Deploy Secret
+      kubernetes.core.k8s:
+        state: present
+        namespace: "{{ namespace }}"
+        src: "{{ k8s_manifests_dir }}/secret.yaml"
+
+
     - name: Deploy PostgreSQL
       kubernetes.core.k8s:
         state: present
@@ -174,7 +181,6 @@
         state: present
         namespace: "{{ namespace }}"
         src: "{{ k8s_manifests_dir }}/ingress.yaml"
-
 
     # ==========================================
     # 11. Wait for deployments
