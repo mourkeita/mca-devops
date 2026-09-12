@@ -9,8 +9,8 @@
     eks_cluster_name: "mca-devops-cluster"
     namespace: "mca"
 
-    frontend_image: "mkeita/mca-devops-frontend:1.0.0"
-    backend_image: "mkeita/mca-devops-backend:1.0.0"
+    frontend_image: "mkeita/mca-devops-frontend"
+    backend_image: "mkeita/mca-devops-backend"
 
     image_tag: "{{ lookup('env', 'IMAGE_TAG') | default('latest', true) }}"
 
