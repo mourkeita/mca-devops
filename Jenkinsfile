@@ -262,6 +262,10 @@ pipeline {
 
                 sh '''
                     kubectl apply \
+                        -f k8s/secret.yaml \
+                        -n ${K8S_NAMESPACE}
+
+                    kubectl apply \
                         -f k8s/postgres-pvc.yaml \
                         -n ${K8S_NAMESPACE}
 
