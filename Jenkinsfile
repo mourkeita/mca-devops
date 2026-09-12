@@ -189,26 +189,32 @@ pipeline {
 
             steps {
 
-                sh '''
-                    echo "Checking EKS cluster..."
+                withCredentials([
+                    [$class: 'AmazonWebServicesCredentialsBinding',
+                     credentialsId: 'aws-credentials']
+                    ]) {
 
-                    if aws eks describe-cluster \
-                        --name ${EKS_CLUSTER} \
-                        --region ${AWS_DEFAULT_REGION} \
-                        >/dev/null 2>&1
-                    then
-
-                        echo "EKS cluster already exists."
-
-                    else
-
-                        echo "Creating EKS cluster..."
-
-                        eksctl create cluster \
-                            -f eks/cluster.yaml
-
-                    fi
-                '''
+                        sh '''
+                            echo "Checking EKS cluster..."
+        
+                            if aws eks describe-cluster \
+                                --name ${EKS_CLUSTER} \
+                                --region ${AWS_DEFAULT_REGION} \
+                                >/dev/null 2>&1
+                            then
+        
+                                echo "EKS cluster already exists."
+        
+                            else
+        
+                                echo "Creating EKS cluster..."
+        
+                                eksctl create cluster \
+                                    -f eks/cluster.yaml
+        
+                            fi
+                        '''
+                    }
             }
         }
 
@@ -221,14 +227,19 @@ pipeline {
         stage('Configure kubectl') {
 
             steps {
+                withCredentials([
+                    [$class: 'AmazonWebServicesCredentialsBinding',
+                     credentialsId: 'aws-credentials']
+                    ]) {
 
-                sh '''
-                    aws eks update-kubeconfig \
-                        --region ${AWS_DEFAULT_REGION} \
-                        --name ${EKS_CLUSTER}
-
-                    kubectl get nodes
-                '''
+                    sh '''
+                        aws eks update-kubeconfig \
+                            --region ${AWS_DEFAULT_REGION} \
+                            --name ${EKS_CLUSTER}
+    
+                        kubectl get nodes
+                    '''
+                }
             }
         }
 
