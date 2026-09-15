@@ -4,8 +4,15 @@
   connection: local
   gather_facts: false
 
-  environment:
-    K8S_AUTH_KUBECONFIG: "{{ kubeconfig_path }}"
+  pre_tasks:
+
+    - name: Configure kubeconfig for EKS
+      ansible.builtin.command:
+        aws eks update-kubeconfig --region {{ aws_region }} --name {{ eks_cluster_name }}
+
+    - name: Check EKS connection
+      ansible.builtin.command:
+        kubectl get nodes
 
   roles:
     - namesapce
