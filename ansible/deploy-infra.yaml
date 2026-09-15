@@ -12,7 +12,7 @@
     frontend_image: "mkeita/mca-devops-frontend"
     backend_image: "mkeita/mca-devops-backend"
 
-    image_tag: "{{ lookup('env', 'IMAGE_TAG') | default('latest', true) }}"
+    image_tag: "{{ lookup('env', 'IMAGE_TAG') | default('1.0.0', true) }}"
 
     k8s_manifests_dir: "../k8s"
 
