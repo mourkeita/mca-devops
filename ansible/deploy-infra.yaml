@@ -24,7 +24,7 @@
 
     - name: Configure kubeconfig for EKS
       ansible.builtin.command:
-        cmd: >
+        cmd:
           aws eks update-kubeconfig
           --region {{ aws_region }}
           --name {{ eks_cluster_name }}
@@ -188,7 +188,7 @@
 
     - name: Wait for backend rollout
       ansible.builtin.command:
-        cmd: >
+        cmd:
           kubectl rollout status
           deployment/backend
           -n {{ namespace }}
@@ -198,7 +198,7 @@
 
     - name: Wait for frontend rollout
       ansible.builtin.command:
-        cmd: >
+        cmd:
           kubectl rollout status
           deployment/frontend
           -n {{ namespace }}
