@@ -1,0 +1,75 @@
+---
+- name: Deploy MCA application on EKS
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+
+  tasks:
+
+
+    # ==========================================
+    # Deploy PostgreSQL PVC
+    # ==========================================
+
+    - name: Deploy PostgreSQL PVC
+      kubernetes.core.k8s:
+        state: present
+        namespace: "{{ namespace }}"
+        src: "{{ k8s_manifests_dir }}/postgres-pvc.yaml"
+
+
+    # ==========================================
+    # 5. Deploy PostgreSQL
+    # ==========================================
+
+    - name: Deploy Secret
+      kubernetes.core.k8s:
+        state: present
+        namespace: "{{ namespace }}"
+        src: "{{ k8s_manifests_dir }}/secret.yaml"
+
+
+    - name: Deploy PostgreSQL
+      kubernetes.core.k8s:
+        state: present
+        namespace: "{{ namespace }}"
+        src: "{{ k8s_manifests_dir }}/postgres-deployment.yaml"
+
+
+    - name: Deploy PostgreSQL service
+      kubernetes.core.k8s:
+        state: present
+        namespace: "{{ namespace }}"
+        src: "{{ k8s_manifests_dir }}/postgres-service.yaml"
+
+
+    # ==========================================
+    # Display final status
+    # ==========================================
+
+    - name: Get application pods
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Pod
+        namespace: "{{ namespace }}"
+      register: pods
+
+
+    - name: Display application pods
+      ansible.builtin.debug:
+        msg: "{{ pods.resources | map(attribute='metadata.name') | list }}"
+
+
+    - name: Get services
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Service
+        namespace: "{{ namespace }}"
+      register: services
+
+
+    - name: Display services
+      ansible.builtin.debug:
+        msg: "{{ services.resources | map(attribute='metadata.name') | list }}"
+

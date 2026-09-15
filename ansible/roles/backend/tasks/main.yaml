@@ -1,0 +1,92 @@
+---
+- name: Deploy MCA application on EKS
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+    # ==========================================
+    # Deploy backend
+    # ==========================================
+
+    - name: Deploy backend
+      kubernetes.core.k8s:
+        state: present
+        namespace: "{{ namespace }}"
+        src: "{{ k8s_manifests_dir }}/backend-deployment.yaml"
+
+
+    - name: Deploy backend service
+      kubernetes.core.k8s:
+        state: present
+        namespace: "{{ namespace }}"
+        src: "{{ k8s_manifests_dir }}/backend-service.yaml"
+
+
+    # ==========================================
+    # Update backend image
+    # ==========================================
+
+    - name: Update backend image
+      kubernetes.core.k8s:
+        state: present
+        namespace: "{{ namespace }}"
+        definition:
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: backend
+          spec:
+            template:
+              spec:
+                containers:
+                  - name: backend
+                    image: "{{ backend_image }}:{{ image_tag }}"
+
+
+    # ==========================================
+    # Wait for deployments
+    # ==========================================
+
+    - name: Wait for backend rollout
+      ansible.builtin.command:
+        cmd: >
+          kubectl rollout status
+          deployment/backend
+          -n {{ namespace }}
+          --timeout=180s
+      changed_when: false
+
+
+
+    # ==========================================
+    # Display final status
+    # ==========================================
+
+    - name: Get application pods
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Pod
+        namespace: "{{ namespace }}"
+      register: pods
+
+
+    - name: Display application pods
+      ansible.builtin.debug:
+        msg: "{{ pods.resources | map(attribute='metadata.name') | list }}"
+
+
+    - name: Get services
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Service
+        namespace: "{{ namespace }}"
+      register: services
+
+
+    - name: Display services
+      ansible.builtin.debug:
+        msg: "{{ services.resources | map(attribute='metadata.name') | list }}"
+
+

@@ -1,0 +1,16 @@
+---
+- name: Deploy MCA application on EKS
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  environment:
+    K8S_AUTH_KUBECONFIG: "{{ kubeconfig_path }}"
+
+  roles:
+    - namesapce
+    - database
+    - backend
+    - frontend
+    - ingress
+

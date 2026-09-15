@@ -1,0 +1,15 @@
+k8s_namespace: mca
+aws_region: eu-west-3
+eks_cluster_name: mca-devops-cluster
+
+# Docker images
+dockerhub_username: mkeita
+
+frontend_image: "{{ dockerhub_username }}/mca-devops-frontend"
+backend_image: "{{ dockerhub_username }}/mca-devops-backend"
+
+# Image tag comes from Jenkins
+image_tag: "{{ lookup('env', 'IMAGE_TAG') | default('1.0.0', true) }}"
+
+# Kube config path
+kubeconfig_path: "{{ lookup('env', 'HOME') }}/.kube/config"

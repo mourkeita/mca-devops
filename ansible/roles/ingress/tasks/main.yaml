@@ -1,0 +1,35 @@
+---
+- name: Deploy MCA application on EKS
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+    # ==========================================
+    # Deploy Ingress
+    # ==========================================
+
+    - name: Deploy Ingress
+      kubernetes.core.k8s:
+        state: present
+        namespace: "{{ namespace }}"
+        src: "{{ k8s_manifests_dir }}/ingress.yaml"
+
+
+    # ==========================================
+    # Display final status
+    # ==========================================
+
+    - name: Get ingress
+      kubernetes.core.k8s_info:
+        api_version: networking.k8s.io/v1
+        kind: Ingress
+        namespace: "{{ namespace }}"
+      register: ingress
+
+
+    - name: Display ALB hostname
+      ansible.builtin.debug:
+        msg: "{{ ingress.resources[0].status.loadBalancer.ingress | default([]) }}"
+
